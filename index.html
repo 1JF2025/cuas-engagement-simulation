@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>C-UAS</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="container">
+    <h1>C-UAS (Counter-Unmanned Aerial System) equilibrium</h1>
+
+    <section id="board">
+      <div>Player: <span id="pilot-score">0</span></div>
+      <div>CPU: <span id="computer-score">0</span></div>
+      <div>Round: <span id="engagement-number">0</span></div>
+    </section>
+
+    <section id="choices">
+      <button class="move-btn" data-move="Drone">Deploy Drone</button>
+      <button class="move-btn" data-move="Jammer">Activate Jammer</button>
+      <button class="move-btn" data-move="Interceptor">Launch Interceptor</button>
+    </section>
+
+    <p id="result-message">Awaiting command input...</p>
+
+    <button id="reset-btn" hidden>Re-engage Simulation</button>
+  </main>
+
+</body>
+</html>
