@@ -45,4 +45,34 @@ document.addEventListener("DOMContentLoaded", () => {
             return { outcome: "lose", message: lossMessages[pilotMove] };
         }
     }
+
+    // =================================================================
+    // GAME STATE & DOM ELEMENTS
+    // =================================================================
+
+    // Game Configuration
+    const BEST_OF = 5;
+    const WINNING_SCORE = Math.floor(BEST_OF / 2) + 1;
+
+    // Game State
+    let pilotScore = 0;
+    let computerScore = 0;
+    let engagementNumber = 0;
+
+    // DOM Elements
+    const pilotScoreEl = document.getElementById("pilot-score");
+    const computerScoreEl = document.getElementById("computer-score");
+    const engagementNumberEl = document.getElementById("engagement-number");
+    const resultMessageEl = document.getElementById("result-message");
+    const moveButtons = document.querySelectorAll(".move-btn");
+    const resetBtn = document.getElementById("reset-btn");
+
+    /**
+     * Updates the scoreboard display with the current game state values.
+     */
+    function updateBoard() {
+        pilotScoreEl.textContent = pilotScore;
+        computerScoreEl.textContent = computerScore;
+        engagementNumberEl.textContent = engagementNumber;
+    }
 });
