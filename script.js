@@ -81,16 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // =================================================================
 
     /**
-     * Handles the end of game logic.
-     * @todo Implement full UI for end of game reset.
-     */
-    function endSimulation() {
-        // TODO: Disable buttons, show final message and unhide resert button.
-        // It will be replaced with the real logic in the next commit.
-        console.warn("endSimulation() called but is not fully complete.");
-    }
-
-    /**
      * Handles the main logic for a single round of the game.
      * @param {string} pilotMove - The move selected by the player.
      */
@@ -122,4 +112,48 @@ document.addEventListener("DOMContentLoaded", () => {
             handleMove(move);
         });
     });
+
+    // =================================================================
+    // GAME OVER & RESET
+    // =================================================================
+
+    /**
+     * Disables or enables all move buttons.
+     * @param {boolean} disabled - True to disable the buttons, false to enable them.
+     */
+    function disableButtons(disabled) {
+        moveButtons.forEach(btn => {
+            btn.disabled = disabled;
+            btn.setAttribute("aria-disabled", disabled ? "true" : "false");
+        });
+    }
+
+    /**
+     * Ends the game, displays the final outcome, and shows the reset button.
+     */
+    function endSimulation() {
+        disableButtons(true);
+        resetBtn.hidden = false;
+        if (pilotScore > computerScore) {
+            resultMessageEl.textContent += " Mission Accomplished - airspace defended";
+        } else {
+            resultMessageEl.textContent += " Mission Failed — Enemy Systems Prevail.";
+        }
+    }
+
+    /**
+     * Resets the game state and UI to their initial values for a new game.
+     */
+    function resetGame() {
+        pilotScore = 0;
+        computerScore = 0;
+        engagementNumber = 0;
+        updateBoard();
+        resultMessageEl.textContent = "Awaiting new command sequence...";
+        disableButtons(false);
+        resetBtn.hidden = true;
+    }
+
+    // Add click listener for the reset button
+    resetBtn.addEventListener("click", resetGame);
 });
