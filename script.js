@@ -75,4 +75,51 @@ document.addEventListener("DOMContentLoaded", () => {
         computerScoreEl.textContent = computerScore;
         engagementNumberEl.textContent = engagementNumber;
     }
+
+    // =================================================================
+    // GAMEPLAY & INTERACTION
+    // =================================================================
+
+    /**
+     * Handles the end of game logic.
+     * @todo Implement full UI for end of game reset.
+     */
+    function endSimulation() {
+        // TODO: Disable buttons, show final message and unhide resert button.
+        // It will be replaced with the real logic in the next commit.
+        console.warn("endSimulation() called but is not fully complete.");
+    }
+
+    /**
+     * Handles the main logic for a single round of the game.
+     * @param {string} pilotMove - The move selected by the player.
+     */
+    function handleMove(pilotMove) {
+        // Stop the game if a winner has already been decided
+        if (pilotScore >= WINNING_SCORE || computerScore >= WINNING_SCORE) return;
+
+        engagementNumber++;
+        const cpuMove = getComputerChoice();
+        const res = determineOutcome(pilotMove, cpuMove);
+
+        // Update scores and messages
+        resultMessageEl.textContent = `Round ${engagementNumber}: ${res.message}`;
+        if (res.outcome === "win") pilotScore++;
+        if (res.outcome === "lose") computerScore++;
+        
+        updateBoard();
+
+        // Check for a game-ending condition
+        if (pilotScore >= WINNING_SCORE || computerScore >= WINNING_SCORE) {
+            endSimulation();
+        }
+    }
+
+    // Add click listeners to all move buttons
+    moveButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const move = btn.dataset.move;
+            handleMove(move);
+        });
+    });
 });
